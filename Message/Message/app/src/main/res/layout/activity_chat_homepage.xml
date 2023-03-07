@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ChatHomepage"
+    android:background="@drawable/gradient"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="15dp"
+        android:layout_marginHorizontal="40dp"
+        >
+
+        <ImageView
+            android:id="@+id/chathome_profile_pic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/push_in_boots"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            />
+
+        <TextView
+            android:id="@+id/chathome_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="User name"
+            android:textStyle="bold"
+            android:textColor="@color/Homescreen_btn"
+            android:textSize="20sp"
+            android:layout_toEndOf="@+id/chathome_profile_pic"
+            android:layout_centerVertical="true"
+            />
+
+    </RelativeLayout>
+    
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/chathome_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#435982"
+        app:tabSelectedTextColor="@color/white"
+        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorHeight="4dp"
+        app:tabTextColor="@color/white"/>
+    
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/chathome_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+
+    <Button
+        android:id="@+id/chathome_random_chat_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RANDOM CHAT"
+        android:textColor="#FFFFFFFF"
+        android:backgroundTint="#435982"
+        android:textSize="20sp"
+        android:paddingVertical="20dp"
+        />
+
+</LinearLayout>

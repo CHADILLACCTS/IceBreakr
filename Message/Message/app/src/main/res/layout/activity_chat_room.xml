@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    tools:context=".ChatRoom"
+    android:id="@+id/chatroom">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/chatroom_appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/chatroom_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-20dp">
+
+            <RelativeLayout
+                android:id="@+id/chatroom_layout_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="#435982"
+                android:layout_alignParentTop="true"
+                >
+
+                <ImageView
+                    android:id="@+id/chatroom_back_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/chatroom_back_btn"
+                    android:contentDescription="Go back"
+                    />
+
+                <TextView
+                    android:id="@+id/chatroom_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="John Smith"
+                    android:textSize="25sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:layout_toEndOf="@id/chatroom_back_btn"
+                    android:layout_marginStart="40dp"
+                    android:layout_centerVertical="true"
+                    />
+
+                <ImageView
+                    android:id="@+id/chatroom_profile_pic"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/minion"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    />
+
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chatroom_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/chatroom_appbar_layout"
+        android:layout_above="@+id/chatroom_layout_text_box"
+        />
+
+
+    <RelativeLayout
+        android:id="@+id/chatroom_layout_text_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentBottom="true"
+        >
+
+        <EditText
+            android:id="@+id/chatroom_text_box"
+            android:hint="Type your message here"
+            android:background="@color/Homescreen_btn"
+            android:textColor="#FFFFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="60dp"
+            android:layout_toStartOf="@id/chatroom_send_btn"
+            android:padding="10dp"
+            android:maxLines="10"
+            android:inputType="textMultiLine"
+            />
+
+        <ImageButton
+            android:id="@+id/chatroom_send_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/chatroom_send_btn"
+            android:contentDescription="Send Button"
+             />
+
+    </RelativeLayout>
+</RelativeLayout>
+

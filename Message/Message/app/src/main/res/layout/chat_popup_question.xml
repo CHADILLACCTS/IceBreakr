@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80373737"
+    android:id="@+id/chat_popup_background">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="350dp"
+        android:layout_centerInParent="true"
+        android:background="@color/chatroom_text_box_bg_gray"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="20dp">
+
+        <TextView
+            android:id="@+id/chat_popup_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/black"
+            android:text="Your question:" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_below="@id/chat_popup_title">
+
+            <TextView
+                android:id="@+id/chat_popup_question_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:maxWidth="240dp"
+                android:text="What do you like to do in your free time?"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:textStyle="italic" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/chat_popup_ready_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/chat_popup_another_btn"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/Homescreen_btn"
+            android:layout_marginBottom="10dp"
+            android:text="I'm ready to chat!"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/chat_popup_another_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="@color/Homescreen_btn"
+            android:layout_centerHorizontal="true"
+            android:text="Give me another question"
+            android:textColor="@color/white"/>
+
+    </RelativeLayout>
+</RelativeLayout>
