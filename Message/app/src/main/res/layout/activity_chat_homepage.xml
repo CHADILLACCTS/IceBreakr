@@ -31,24 +31,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="User name"
-            android:textColor="#FFFFFFFF"
+            android:textStyle="bold"
+            android:textColor="@color/Homescreen_btn"
             android:textSize="20sp"
             android:layout_toEndOf="@+id/chathome_profile_pic"
             android:layout_centerVertical="true"
             />
-
-        <Button
-            android:id="@+id/chathome_logout_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:backgroundTint="#435982"
-            android:textColor="#FFFFFFFF"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:text="Logout" />
 
     </RelativeLayout>
     

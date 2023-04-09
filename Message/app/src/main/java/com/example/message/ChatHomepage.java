@@ -50,9 +50,6 @@ public class ChatHomepage extends AppCompatActivity {
 
     static int numUsers;
 
-    int max;
-
-    int rand;
 
 
 
@@ -69,7 +66,6 @@ public class ChatHomepage extends AppCompatActivity {
         // Link variable to the corresponding element in the layout (.xml)
         profilePic = findViewById(R.id.chathome_profile_pic);
         name = findViewById(R.id.chathome_name);
-        logoutBtn = findViewById(R.id.chathome_logout_btn);
         RandomBtn = findViewById(R.id.chathome_random_chat_btn);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
@@ -145,16 +141,6 @@ public class ChatHomepage extends AppCompatActivity {
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        // If click on "Logout" button, user is logged out from the "database's perspective"
-        // User will then be directed to the Initial page of the app
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(ChatHomepage.this, Start.class));
-                finish();
-            }
-        });
     }
 
 
@@ -207,6 +193,7 @@ public class ChatHomepage extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(ChatHomepage.this, HomeScreen.class);
         startActivity(intent);
+        finish();
     }
 
 }

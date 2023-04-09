@@ -17,5 +17,5 @@
     <color name="colorSecondary">#F433A2FF</color>
     <color name="colorPrimaryDark">#3311FF</color>
     <color name="colorAccent">#88c0f7</color>
-
+    <color name="Homescreen_btn">#435982</color>
 </resources>

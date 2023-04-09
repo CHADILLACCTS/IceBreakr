@@ -24,5 +24,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Theme.Message.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Message.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 
 </resources>

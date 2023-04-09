@@ -87,7 +87,8 @@
         <EditText
             android:id="@+id/chatroom_text_box"
             android:hint="Type your message here"
-            android:background="@color/chat_blue"
+            android:background="@color/Homescreen_btn"
+            android:textColor="#FFFFFFFF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="60dp"

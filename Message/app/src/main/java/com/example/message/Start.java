@@ -1,11 +1,16 @@
 package com.example.message;
 
+import static com.example.message.Login.REMEMBER;
+import static com.example.message.Login.SHARED_PREFS;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -16,13 +21,21 @@ public class Start extends AppCompatActivity {
 
     FirebaseUser firebaseUser;
 
+    Boolean remember;
+
     @Override
     protected void onStart() {
         super.onStart();
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        remember = sharedPreferences.getBoolean(REMEMBER, false);
+        if(remember)
+        {
+            firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        }
         // Check in the user has already logged in
+
         if (firebaseUser != null){
             startActivity(new Intent(Start.this, HomeScreen.class));
             finishAffinity();

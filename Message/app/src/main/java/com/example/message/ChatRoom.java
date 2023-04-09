@@ -36,9 +36,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 // This is the Chat Room, where the conversation will take place
 public class ChatRoom extends AppCompatActivity {
@@ -63,18 +67,17 @@ public class ChatRoom extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);    // The layout connected to this method
 
-//        openDialog();
-//        openPopupWindow();
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.chatroom_toolbar);
+        setSupportActionBar(toolbar);
 
-        //androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.chatroom_toolbar);
-        //setSupportActionBar(toolbar);
-
-        /*toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
-        });*/
+        });
+
+        openPopupWindow();
 
         recyclerView = findViewById(R.id.chatroom_recycler_view);
         // The next line indicates that the children of recyclerView
@@ -94,6 +97,8 @@ public class ChatRoom extends AppCompatActivity {
         intent = getIntent();
         String receiverID = intent.getStringExtra("userid");
 
+
+
         // If the user hits the Send Button, the message will be saved to the database
         // Only proceed to send message if the input is not empty
         // The text box is set back to Empty (no character) for the next input
@@ -107,16 +112,7 @@ public class ChatRoom extends AppCompatActivity {
                 }
                 textBox.setText("");
 
-                openPopupWindow();
-            }
-        });
-
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ChatRoom.this,ChatHomepage.class);
-                startActivity(intent);
-                finish();
+//                openPopupWindow();
             }
         });
 
@@ -145,6 +141,15 @@ public class ChatRoom extends AppCompatActivity {
             }
         });
 
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ChatRoom.this, ChatHomepage.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     // After the user hits send, the message is proceeded to be stored on database
@@ -159,8 +164,6 @@ public class ChatRoom extends AppCompatActivity {
 
         // All collected data will be under a shared key called "Chats"
         messageRef.child("Chats").push().setValue(hashMap);
-
-        // TODO: add something for ChatList
 
         DatabaseReference chatListRef = FirebaseDatabase.getInstance().getReference("ChatList")
                 .child(sender)
@@ -216,33 +219,6 @@ public class ChatRoom extends AppCompatActivity {
 
     }
 
-    public void openDialog() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setMessage("Ice Breaker question");
-//        LayoutInflater inflater = getLayoutInflater();
-
-
-//        builder.setView(inflater.inflate(R.layout.chat_popup_question, null));
-
-//                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface arg0, int arg1) {
-////                        Toast.makeText(ChatRoom.this, "You clicked yes button", Toast.LENGTH_LONG).show();
-//                    }
-//                })
-//
-//                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-////                        finish();
-//                    }
-//                });
-
-//        AlertDialog alertDialog = builder.create();
-//        alertDialog.show();
-    }
-
-
     public void openPopupWindow(){
 //        LayoutInflater inflater = (LayoutInflater) ChatRoom.this.getSystemService(LAYOUT_INFLATER_SERVICE);
         View view = View.inflate(this, R.layout.chat_popup_question, null);
@@ -250,23 +226,50 @@ public class ChatRoom extends AppCompatActivity {
         Button readyButton = view.findViewById(R.id.chat_popup_ready_btn);
         Button anotherButton = view.findViewById(R.id.chat_popup_another_btn);
 
-
         PopupWindow popupWindow = new PopupWindow(view, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT,true);
-        popupWindow.showAtLocation(findViewById(R.id.chatroom), Gravity.CENTER, 0, 0);
+
+        findViewById(R.id.chatroom).post(new Runnable() {
+            @Override
+            public void run() {
+                popupWindow.showAtLocation(findViewById(R.id.chatroom), Gravity.CENTER, 0, 0);
+            }
+        });
+//        popupWindow.showAtLocation(findViewById(R.id.chatroom), Gravity.CENTER, 0, 0);
 
         RelativeLayout background = view.findViewById(R.id.chat_popup_background);
         background.setVisibility(View.VISIBLE);
 
+        // Get random question from a text file
+        // 1. Get the file
+        InputStream inputStream = this.getResources().openRawResource(R.raw.sampleqs);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        List<String> questions = new ArrayList<String>();
+        // 2 . Read the file
+        String strData = "";
+        int i = 0;
+        if(inputStream != null){
+            try{
+                while ((strData = bufferedReader.readLine()) != null){
+                    questions.add(strData);
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        // 3. Randomly pick a question from the list
+        Random rand = new Random();
+        int randomIndex = rand.nextInt(questions.size());
+        String randomElement = questions.get(randomIndex);
 
-        // TODO: CHANGE THIS WITH A RANDOMIZING METHOD --> QUESTION FROM FILE
-        String text = "This is a sample Ice Breaker question";
-        question.setText(text);
-
+        // Display the question
+        question.setText(randomElement);
 
         readyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ChatRoom.this, "You are ready! Enjoy chatting!", Toast.LENGTH_LONG).show();
+                Toast toast = Toast.makeText(ChatRoom.this, "Enjoy chatting! :)", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER,0,0);
+                toast.show();
                 background.setVisibility(View.GONE);
                 popupWindow.dismiss();
             }
@@ -275,20 +278,11 @@ public class ChatRoom extends AppCompatActivity {
         anotherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ChatRoom.this, "Another question is coming up!", Toast.LENGTH_LONG).show();
                 background.setVisibility(View.GONE);
+                openPopupWindow();
                 popupWindow.dismiss();
             }
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();{
-            Intent intent = new Intent(ChatRoom.this,ChatHomepage.class);
-            startActivity(intent);
-            finish();
-        }
     }
 }
 
