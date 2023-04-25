@@ -6,7 +6,10 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="gray_dark">#202124</color>
+    <color name="gray_medium">#555555</color>
+    <color name="gray_light">#DDDDDD</color>
+    <color name="white">#2B2B2B</color>
     <color name="chat_blue"> #44a4c7</color>
     <color name="chat_gray">#6d7578</color>
     <color name="chat_gray_divider">#6d7578</color>
@@ -18,4 +21,10 @@
     <color name="colorPrimaryDark">#3311FF</color>
     <color name="colorAccent">#88c0f7</color>
     <color name="Homescreen_btn">#435982</color>
+    <color name="Blue_0">#F8FCFF</color>
+    <color name="Blue_1">#8BD3F3</color>
+    <color name="Blue_2">#004E9E</color>
+    <color name="Blue_3">#0B648D</color>
+    <color name="Blue_4">#0A567A</color>
+    <color name="maroon">#800000</color>
 </resources>

@@ -29,7 +29,7 @@
     <string name="register">REGISTER</string>
     <string name="email">EMAIL</string>
     <string name="password">PASSWORD</string>
-    <string name="title_activity_reset_password">ResetPassword</string>
+    <string name="title_activity_friend_request">FriendRequest</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

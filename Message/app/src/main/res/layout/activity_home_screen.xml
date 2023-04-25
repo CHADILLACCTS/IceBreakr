@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
+    android:background="@color/Blue_0"
     tools:context=".HomeScreen"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginVertical="100dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/Homescreen_IceBreakr"
@@ -20,7 +20,7 @@
             android:layout_centerHorizontal="true"
             android:fontFamily="casual"
             android:text="@string/ice_breakr"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/Blue_2"
             android:textSize="70sp"
             android:textStyle="bold"/>
 
@@ -29,16 +29,17 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
 
         <TextView
             android:id="@+id/Homescreen_welcome_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="90dp"
-            android:text="Welcome back, John!"
-            android:textColor="@color/Homescreen_btn"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:text="Welcome back, John Smith!"
+            android:textColor="@color/gray_medium"
             android:textSize="20sp"
             android:textStyle="bold|italic" />
 
@@ -47,20 +48,18 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="80dp"
-        android:layout_marginBottom="70dp"
-        android:layout_weight="1">
+        android:layout_marginHorizontal="80dp">
 
         <Button
             android:id="@+id/Homescreen_userprofile_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:paddingVertical="25dp"
             android:layout_marginVertical="5dp"
-            android:backgroundTint="@color/Homescreen_btn"
+            android:backgroundTint="@color/Blue_2"
             android:text="@string/user_profile"
-            android:textColor="@drawable/button_text_color"
+            android:textSize="17sp"
+            android:textColor="@color/Blue_0"
             android:layout_above="@+id/Homescreen_chat_btn" />
 
 
@@ -69,10 +68,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="25dp"
-            android:layout_marginVertical="5dp"
-            android:backgroundTint="@color/Homescreen_btn"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="@color/Blue_2"
             android:text="@string/chat"
-            android:textColor="@drawable/button_text_color"
+            android:textSize="17sp"
+            android:textColor="@color/Blue_0"
             android:layout_above="@id/Homescreen_logout_btn"/>
 
         <Button
@@ -81,12 +81,12 @@
             android:layout_height="wrap_content"
             android:paddingVertical="25dp"
             android:layout_marginVertical="5dp"
-            android:backgroundTint="@color/Homescreen_btn"
+            android:backgroundTint="@color/Blue_2"
             android:text="@string/logout"
-            android:textColor="@drawable/button_text_color"
+            android:textSize="17sp"
+            android:textColor="@color/Blue_0"
             android:layout_alignParentBottom="true"
             />
-
 
     </RelativeLayout>
 

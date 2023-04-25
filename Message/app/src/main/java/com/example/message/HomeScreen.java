@@ -1,11 +1,7 @@
 package com.example.message;
 
-import static com.example.message.Login.REMEMBER;
-import static com.example.message.Login.SHARED_PREFS;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.message.model.User;
@@ -54,10 +50,18 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
 
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeScreen.this, UserProfile.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
-        DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("Users");
 
         // Listen to (Record) any upcoming data
         reference.addValueEventListener(new ValueEventListener() {
@@ -66,8 +70,10 @@ public class HomeScreen extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // Retrieve data from a particular snapshot
                 // Store the data to the declared variables
-                User user = snapshot.getValue(User.class);
-                name.setText("Welcome back, " + user.getName() + "!");
+                if(snapshot.exists()){
+                    User user = snapshot.getValue(User.class);
+                    name.setText("Welcome back, " + user.getName() + "!");
+                }
             }
 
             @Override
@@ -79,11 +85,6 @@ public class HomeScreen extends AppCompatActivity {
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean(REMEMBER, false);
-                editor.commit();
-
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(HomeScreen.this, Start.class);
                 startActivity(intent);

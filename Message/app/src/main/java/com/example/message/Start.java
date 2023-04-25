@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,7 +26,6 @@ public class Start extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         remember = sharedPreferences.getBoolean(REMEMBER, false);
         if(remember)
@@ -35,7 +33,6 @@ public class Start extends AppCompatActivity {
             firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         }
         // Check in the user has already logged in
-
         if (firebaseUser != null){
             startActivity(new Intent(Start.this, HomeScreen.class));
             finishAffinity();

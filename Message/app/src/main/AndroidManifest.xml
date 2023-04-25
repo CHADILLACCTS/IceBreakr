@@ -14,10 +14,25 @@
         android:theme="@style/Theme.Message"
         tools:targetApi="31">
         <activity
-            android:name=".ResetPassword"
+            android:name=".FriendRequest"
             android:exported="false"
-            android:label="@string/title_activity_reset_password"
+            android:label="@string/title_activity_friend_request"
             android:theme="@style/Theme.Message.NoActionBar" />
+        <activity
+            android:name=".ChangePicture"
+            android:exported="false" />
+        <activity
+            android:name=".ResetPassword"
+            android:exported="false" />
+        <activity
+            android:name=".ChatSearching"
+            android:exported="false" />
+        <activity
+            android:name=".ChangePassword"
+            android:exported="false" />
+        <activity
+            android:name=".UserProfile"
+            android:exported="false" />
         <activity
             android:name=".HomeScreen"
             android:exported="false"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
+    android:background="@color/Blue_0"
     tools:context=".ChatRoom"
     android:id="@+id/chatroom">
 
@@ -23,20 +23,31 @@
                 android:id="@+id/chatroom_layout_navigation"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:background="#435982"
+                android:background="@color/Blue_2"
                 android:layout_alignParentTop="true"
+                android:paddingHorizontal="20dp"
                 >
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/chatroom_back_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
                     android:background="@drawable/chatroom_back_btn"
                     android:contentDescription="Go back"
                     />
+
+                <ImageView
+                    android:id="@+id/chatroom_profile_pic"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/minion"
+                    android:layout_marginStart="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/chatroom_back_btn"
+                    />
+
 
                 <TextView
                     android:id="@+id/chatroom_name"
@@ -44,21 +55,11 @@
                     android:layout_height="wrap_content"
                     android:text="John Smith"
                     android:textSize="25sp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/Blue_0"
                     android:textStyle="bold"
-                    android:layout_toEndOf="@id/chatroom_back_btn"
-                    android:layout_marginStart="40dp"
+                    android:layout_toEndOf="@id/chatroom_profile_pic"
+                    android:layout_marginStart="10dp"
                     android:layout_centerVertical="true"
-                    />
-
-                <ImageView
-                    android:id="@+id/chatroom_profile_pic"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/minion"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="20dp"
                     />
 
             </RelativeLayout>
@@ -86,14 +87,16 @@
 
         <EditText
             android:id="@+id/chatroom_text_box"
-            android:hint="Type your message here"
-            android:background="@color/Homescreen_btn"
-            android:textColor="#FFFFFFFF"
+            android:background="@color/gray_light"
+            android:textColor="@color/gray_dark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="60dp"
+            android:hint="Type your message here..."
+            android:textColorHint="@color/gray_medium"
             android:layout_toStartOf="@id/chatroom_send_btn"
-            android:padding="10dp"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="15dp"
             android:maxLines="10"
             android:inputType="textMultiLine"
             />
@@ -104,10 +107,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="-5dp"
             android:background="@drawable/chatroom_send_btn"
             android:contentDescription="Send Button"
              />
+
+
 
     </RelativeLayout>
 </RelativeLayout>

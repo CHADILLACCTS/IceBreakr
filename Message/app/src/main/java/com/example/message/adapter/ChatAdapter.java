@@ -2,7 +2,6 @@ package com.example.message.adapter;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.message.ChatRoom;
 import com.example.message.R;
 import com.example.message.model.Chat;
-import com.example.message.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -28,15 +25,15 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public static final int message_send = 1;
     private Context context;
     private List<Chat> chatList;
-    private String imageURL;
+    private int imageID;
 
     FirebaseUser firebaseUser;
 
     // Declaration of ChatAdapter
-    public ChatAdapter(Context context, List<Chat> chatList, String imageURL){
+    public ChatAdapter(Context context, List<Chat> chatList, int imageID){
         this.context = context;
         this.chatList = chatList;
-        this.imageURL = imageURL;
+        this.imageID = imageID;
     }
 
     // This method decides how the layout of the Chat will look like
@@ -60,10 +57,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         Chat chat = chatList.get(position);
 
         holder.message.setText(chat.getMessage());
+        holder.profilePic.setImageResource(imageID);
 
-        if(imageURL.equals("default")){
-            holder.profilePic.setImageResource(R.mipmap.ic_launcher);
-        }
     }
 
     @Override

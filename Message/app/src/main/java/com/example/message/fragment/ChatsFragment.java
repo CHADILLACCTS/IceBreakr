@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,7 @@ public class ChatsFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private FriendAdapter chatListAdapter;
-    private List<ChatList> chatUserList;
+    private List<String> chatUserList;
     private List<User> userList;
 
     DatabaseReference userRef, chatListRef;
@@ -66,10 +67,10 @@ public class ChatsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 chatUserList.clear();
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    ChatList chatlist = dataSnapshot.getValue(ChatList.class);
-                    chatUserList.add(chatlist);        // receiver in ChatList
+                    String chatList = dataSnapshot.getValue(String.class);
+                    chatUserList.add(chatList);        // sender in ChatList
                 }
-                readChatList();
+                getChatList();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -80,7 +81,7 @@ public class ChatsFragment extends Fragment {
 
     // Retrieve id of "receiver" in User format (id + name + pic)
     // Store to display
-    private void readChatList() {
+    private void getChatList() {
         userList = new ArrayList<>();
         userRef = FirebaseDatabase.getInstance().getReference("Users");
         userRef.addValueEventListener(new ValueEventListener() {
@@ -92,8 +93,8 @@ public class ChatsFragment extends Fragment {
 
                     // Retrieve all users that have chatted with the main user
                     // Full info from User class
-                    for(ChatList chatlist: chatUserList){
-                        if(user.getId().equals(chatlist.getId())){
+                    for(String chatList: chatUserList){
+                        if(user.getId().equals(chatList)){
                             userList.add(user);     // receiver in Users
                         }
                     }

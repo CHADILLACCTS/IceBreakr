@@ -45,9 +45,9 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
         holder.name.setText(user.getName());
 
         // PROFILE PIC
-        if(user.getImageURL().equals("default")){
-            holder.profilePic.setImageResource(R.mipmap.ic_launcher);
-        }
+
+        holder.profilePic.setImageResource(Integer.parseInt(user.getImageID()));
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

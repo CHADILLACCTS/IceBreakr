@@ -5,16 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ActionBar;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -23,7 +20,6 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.message.adapter.ChatAdapter;
 import com.example.message.model.Chat;
@@ -52,14 +48,13 @@ public class ChatRoom extends AppCompatActivity {
     FirebaseUser firebaseUser;
     DatabaseReference reference;
     ImageButton sendBtn;
-
-    ImageView backBtn;
     EditText textBox;
     Intent intent;
 
     ChatAdapter chatAdapter;
     List<Chat> chatList;
     RecyclerView recyclerView;
+    String nameString, receiverID, question;
 
 
     @Override
@@ -77,7 +72,15 @@ public class ChatRoom extends AppCompatActivity {
             }
         });
 
-        openPopupWindow();
+        ImageButton backBtn = findViewById(R.id.chatroom_back_btn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ChatRoom.this, ChatHomepage.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         recyclerView = findViewById(R.id.chatroom_recycler_view);
         // The next line indicates that the children of recyclerView
@@ -92,12 +95,18 @@ public class ChatRoom extends AppCompatActivity {
         name = findViewById(R.id.chatroom_name);
         textBox = findViewById(R.id.chatroom_text_box);
         sendBtn = findViewById(R.id.chatroom_send_btn);
-        backBtn = findViewById(R.id.chatroom_back_btn);
 
+
+        // Retrieve parameters passed by ChatHomepage during Random Chat
         intent = getIntent();
-        String receiverID = intent.getStringExtra("userid");
+        Bundle extras = intent.getExtras();
+        receiverID = extras.getString("userid");
+        question = extras.getString("question");
 
-
+        // Question window only pops up for Random Chat
+        if(question != null){
+            openQuestionPopupWindow(question);
+        }
 
         // If the user hits the Send Button, the message will be saved to the database
         // Only proceed to send message if the input is not empty
@@ -111,8 +120,6 @@ public class ChatRoom extends AppCompatActivity {
                     sendMessage(firebaseUser.getUid(),receiverID,message);
                 }
                 textBox.setText("");
-
-//                openPopupWindow();
             }
         });
 
@@ -127,12 +134,14 @@ public class ChatRoom extends AppCompatActivity {
                 // Retrieve data from a particular snapshot
                 // Store the data to the declared variables
                 User user = snapshot.getValue(User.class);
-                name.setText(user.getName());
-                if(user.getImageURL().equals("default")){
-                    profilePic.setImageResource(R.mipmap.ic_launcher);
-                }
+
+                nameString = user.getName();
+                name.setText(nameString);
+
+                profilePic.setImageResource(Integer.parseInt(user.getImageID()));
+
                 // Read the message of current user (sent and received) from database
-                readMessage(firebaseUser.getUid(), receiverID, user.getImageURL());
+                readMessage(firebaseUser.getUid(), receiverID, Integer.parseInt(user.getImageID()));
             }
 
             @Override
@@ -141,16 +150,29 @@ public class ChatRoom extends AppCompatActivity {
             }
         });
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ChatRoom.this, ChatHomepage.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
     }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.chat_room_friend_menu, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.chat_room_add_friend:
+                addFriend();
+                return true;
+
+            case R.id.chat_room_do_not_connect_again:
+                doNotConnectAgain();
+                return (true);
+
+            case R.id.chat_room_report_user:
+                openReportWindow(receiverID);
+                return (true);
+        }
+        return (super.onOptionsItemSelected(item));
+    }
+
 
     // After the user hits send, the message is proceeded to be stored on database
     // Hashmap created the item in the database based on the given items (parameters)
@@ -162,21 +184,17 @@ public class ChatRoom extends AppCompatActivity {
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
 
-        // All collected data will be under a shared key called "Chats"
-        messageRef.child("Chats").push().setValue(hashMap);
+        // All collected data will be under a shared key called "ChatHistory"
+        messageRef.child("ChatHistory").push().setValue(hashMap);
 
-        DatabaseReference chatListRef = FirebaseDatabase.getInstance().getReference("ChatList")
-                .child(sender)
-                .child(receiver);
+        DatabaseReference chatListRef = FirebaseDatabase.getInstance().getReference("ChatList");
 
         chatListRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(!snapshot.exists()){
-                    chatListRef.child("id").setValue(receiver);
+                chatListRef.child(receiver).child(sender).setValue(sender);
+                chatListRef.child(sender).child(receiver).setValue(receiver);
                 }
-            }
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -191,10 +209,10 @@ public class ChatRoom extends AppCompatActivity {
     // During the traversal, compare the receiver ID and sender ID with the existing ones on database
     //      to ensure the correct conversation is retrieved
     // Apply the Adapter function to finalize the change
-    private void readMessage(String senderId, String receiverId, String imageURL){
+    private void readMessage(String senderId, String receiverId, int imageID){
         chatList = new ArrayList<>();
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("ChatHistory");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -207,7 +225,7 @@ public class ChatRoom extends AppCompatActivity {
                         chatList.add(chat);
                     }
 
-                    chatAdapter= new ChatAdapter(ChatRoom.this, chatList, imageURL);
+                    chatAdapter= new ChatAdapter(ChatRoom.this, chatList, imageID);
                     recyclerView.setAdapter(chatAdapter);
                 }
             }
@@ -219,12 +237,10 @@ public class ChatRoom extends AppCompatActivity {
 
     }
 
-    public void openPopupWindow(){
-//        LayoutInflater inflater = (LayoutInflater) ChatRoom.this.getSystemService(LAYOUT_INFLATER_SERVICE);
-        View view = View.inflate(this, R.layout.chat_popup_question, null);
-        TextView question = view.findViewById(R.id.chat_popup_question_text);
-        Button readyButton = view.findViewById(R.id.chat_popup_ready_btn);
-        Button anotherButton = view.findViewById(R.id.chat_popup_another_btn);
+    public void openReportWindow(String reportedId){
+        View view = View.inflate(this, R.layout.report_window, null);
+        EditText report = view.findViewById(R.id.report_text);
+        Button sendBtn = view.findViewById(R.id.send_report_btn);
 
         PopupWindow popupWindow = new PopupWindow(view, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT,true);
 
@@ -234,55 +250,155 @@ public class ChatRoom extends AppCompatActivity {
                 popupWindow.showAtLocation(findViewById(R.id.chatroom), Gravity.CENTER, 0, 0);
             }
         });
-//        popupWindow.showAtLocation(findViewById(R.id.chatroom), Gravity.CENTER, 0, 0);
 
-        RelativeLayout background = view.findViewById(R.id.chat_popup_background);
+        RelativeLayout background = view.findViewById(R.id.report_window_layout);
         background.setVisibility(View.VISIBLE);
 
-        // Get random question from a text file
-        // 1. Get the file
-        InputStream inputStream = this.getResources().openRawResource(R.raw.sampleqs);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        List<String> questions = new ArrayList<String>();
-        // 2 . Read the file
-        String strData = "";
-        int i = 0;
-        if(inputStream != null){
-            try{
-                while ((strData = bufferedReader.readLine()) != null){
-                    questions.add(strData);
-                }
-            } catch (Exception e){
-                e.printStackTrace();
+        // Display the question
+
+
+
+        sendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String reportText = report.getText().toString();
+
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Reports").child(reportedId).child(firebaseUser.getUid());
+                ref.child("Report").setValue(reportText);
+                Toast.makeText(ChatRoom.this, "Report Sent", Toast.LENGTH_SHORT).show();
+                popupWindow.dismiss();
             }
-        }
-        // 3. Randomly pick a question from the list
-        Random rand = new Random();
-        int randomIndex = rand.nextInt(questions.size());
-        String randomElement = questions.get(randomIndex);
+        });
+    }
+
+    public void openQuestionPopupWindow(String randomQuestion){
+        View view = View.inflate(this, R.layout.chat_popup_question, null);
+        TextView question = view.findViewById(R.id.chat_popup_question_text);
+        Button readyButton = view.findViewById(R.id.chat_popup_ready_btn);
+
+        PopupWindow popupWindow = new PopupWindow(view, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT,true);
+
+        findViewById(R.id.chatroom).post(new Runnable() {
+            @Override
+            public void run() {
+                popupWindow.showAtLocation(findViewById(R.id.chatroom), Gravity.CENTER, 0, 0);
+            }
+        });
+
+        RelativeLayout background = view.findViewById(R.id.chat_popup_question_layout);
+        background.setVisibility(View.VISIBLE);
 
         // Display the question
-        question.setText(randomElement);
+        question.setText(randomQuestion);
 
         readyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast toast = Toast.makeText(ChatRoom.this, "Enjoy chatting! :)", Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.CENTER,0,0);
-                toast.show();
-                background.setVisibility(View.GONE);
+                popupWindow.dismiss();
+            }
+        });
+    }
+
+    public void addFriend(){
+        View view = View.inflate(this, R.layout.chat_popup_add_friend, null);
+        DatabaseReference friendRequestRef = FirebaseDatabase.getInstance().getReference().child("FriendRequest");
+        Button yesBtn = view.findViewById(R.id.chat_popup_add_friend_yes_btn);
+        Button noBtn = view.findViewById(R.id.chat_popup_add_friend_no_btn);
+        TextView text = view.findViewById(R.id.chat_popup_add_friend_text);
+        text.setText("Add " + nameString + "\nto your friend list?");
+
+        PopupWindow popupWindow = new PopupWindow(view, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT,true);
+
+        findViewById(R.id.chatroom).post(new Runnable() {
+            @Override
+            public void run() {
+                popupWindow.showAtLocation(findViewById(R.id.chatroom), Gravity.CENTER, 0, 0);
+            }
+        });
+
+        yesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                friendRequestRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("requester", firebaseUser.getUid());
+                        hashMap.put("requestee", receiverID);
+                        friendRequestRef.push().setValue(hashMap);
+                        Toast.makeText(ChatRoom.this, "Your friend request has been sent!", Toast.LENGTH_SHORT).show();
+                        popupWindow.dismiss();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+            }
+        });
+
+        noBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 popupWindow.dismiss();
             }
         });
 
-        anotherButton.setOnClickListener(new View.OnClickListener() {
+    }
+
+    public void doNotConnectAgain() {
+        View view = View.inflate(this, R.layout.chat_popup_other, null);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("DoNotConnect");
+        Button yesBtn = view.findViewById(R.id.chat_popup_other_yes_btn);
+        Button noBtn = view.findViewById(R.id.chat_popup_other_no_btn);
+        TextView text = view.findViewById(R.id.chat_popup_other_text);
+        TextView note = view.findViewById(R.id.chat_popup_other_note);
+
+        text.setText("Do not connect with\n" + nameString + " again?");
+        note.setText("You and " + nameString + " will not\nbe matched again in the future");
+
+        PopupWindow popupWindow = new PopupWindow(view, RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT, true);
+
+        findViewById(R.id.chatroom).post(new Runnable() {
+            @Override
+            public void run() {
+                popupWindow.showAtLocation(findViewById(R.id.chatroom), Gravity.CENTER, 0, 0);
+            }
+        });
+
+        yesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                background.setVisibility(View.GONE);
-                openPopupWindow();
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        ref.child(firebaseUser.getUid()).child(receiverID).setValue(receiverID);
+                        ref.child(receiverID).child(firebaseUser.getUid()).setValue(firebaseUser.getUid());
+
+                        Toast.makeText(ChatRoom.this, "You two will not be matched again!", Toast.LENGTH_SHORT).show();
+                        popupWindow.dismiss();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+
+        noBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 popupWindow.dismiss();
             }
         });
+
     }
 }
 

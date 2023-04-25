@@ -1,75 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
+    android:background="@color/Blue_0"
     tools:context=".Start"
-    android:orientation="vertical"
     >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="70dp"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/Homescreen_IceBreakr"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="70dp"
             android:fontFamily="casual"
             android:text="@string/ice_breakr"
-            android:textColor="#FFFFFF"
+            android:textAlignment="center"
+            android:textColor="@color/Blue_2"
             android:textSize="70sp"
             android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/HomeScreen_slogan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/Homescreen_IceBreakr"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/slogan"
-            android:textColor="#F7FDFF"
-            android:textSize="20sp"
-            android:textStyle="italic" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="300dp"
             android:layout_height="200dp"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="15dp"
+            android:layout_margin="15dp"
             android:contentDescription="logo"
+            android:layout_gravity="center"
             android:src="@drawable/img"
-            android:layout_marginBottom="-30dp"
-            />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="80dp"
-        android:layout_marginTop="20dp">
+        />
 
         <Button
             android:id="@+id/start_login_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="20dp"
-            android:backgroundTint="@color/Homescreen_btn"
+            android:backgroundTint="@color/Blue_2"
             android:text="@string/login"
-            android:textColor="#FFFFFFFF"
+            android:textColor="@color/Blue_0"
             android:textSize="30sp"
             android:textStyle="bold" />
 
@@ -79,14 +52,15 @@
             android:layout_height="wrap_content"
             android:paddingVertical="20dp"
             android:layout_marginTop="30dp"
-            android:backgroundTint="@color/Homescreen_btn"
+            android:backgroundTint="@color/Blue_2"
             android:text="@string/register"
-            android:textColor="#FFFFFFFF"
+            android:textColor="@color/Blue_0"
             android:textSize="30sp"
             android:textStyle="bold"
             android:layout_below="@+id/start_login_btn"
             />
 
-    </RelativeLayout>
+    </LinearLayout>
 
-</LinearLayout>
+
+</RelativeLayout>

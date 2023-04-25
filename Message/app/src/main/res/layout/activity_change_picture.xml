@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserProfile"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/change_picture_layout_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/Blue_2"
+        android:layout_alignParentTop="true"
+        android:paddingHorizontal="20dp"
+        >
+        <ImageButton
+            android:id="@+id/change_picture_back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/chatroom_back_btn"
+            android:contentDescription="Go back"
+            />
+
+
+        <TextView
+            android:id="@+id/change_password_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/change_picture_back_btn"
+            android:text="Change Profile Picture"
+            android:textSize="25sp"
+            android:textColor="@color/Blue_0"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            android:layout_centerVertical="true"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="466dp"
+        android:layout_marginTop="20dp">
+
+
+        <ImageView
+            android:id="@+id/selected"
+            android:visibility="invisible"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="60dp"
+            android:layout_toStartOf="@id/selected2"
+            android:background="@drawable/change_picture_select_arrow" />
+
+        <ImageView
+            android:id="@+id/userprofile_profile_pic"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="40dp"
+            android:layout_toStartOf="@id/userprofile_profile_pic2"
+            android:background="@drawable/icondefault" />
+
+        <ImageView
+            android:id="@+id/selected2"
+            android:visibility="invisible"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/change_picture_select_arrow" />
+
+
+        <ImageView
+            android:id="@+id/userprofile_profile_pic2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/selected2"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/icon1" />
+
+        <ImageView
+            android:id="@+id/selected3"
+            android:visibility="invisible"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:layout_toEndOf="@id/selected2"
+            android:background="@drawable/change_picture_select_arrow" />
+
+
+        <ImageView
+            android:id="@+id/userprofile_profile_pic3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="40dp"
+            android:layout_toEndOf="@id/userprofile_profile_pic2"
+            android:background="@drawable/icon2" />
+
+        <ImageView
+            android:id="@+id/selected4"
+            android:visibility="invisible"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/userprofile_profile_pic"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="60dp"
+            android:layout_toStartOf="@id/selected5"
+            android:background="@drawable/change_picture_select_arrow" />
+
+        <ImageView
+            android:id="@+id/userprofile_profile_pic4"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/selected4"
+            android:layout_toStartOf="@id/userprofile_profile_pic2"
+            android:background="@drawable/icon3" />
+
+        <ImageView
+            android:id="@+id/selected5"
+            android:visibility="invisible"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/userprofile_profile_pic2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/change_picture_select_arrow" />
+
+
+        <ImageView
+            android:id="@+id/userprofile_profile_pic5"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/selected5"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/icon4" />
+
+        <ImageView
+            android:id="@+id/selected6"
+            android:visibility="invisible"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/userprofile_profile_pic"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="40dp"
+            android:layout_toEndOf="@id/selected5"
+            android:background="@drawable/change_picture_select_arrow" />
+
+        <ImageView
+            android:id="@+id/userprofile_profile_pic6"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/selected4"
+            android:layout_toEndOf="@id/userprofile_profile_pic2"
+            android:background="@drawable/icon5" />
+
+        <ImageView
+            android:id="@+id/selected7"
+            android:visibility="invisible"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/userprofile_profile_pic4"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="60dp"
+            android:layout_toStartOf="@id/selected5"
+            android:background="@drawable/change_picture_select_arrow" />
+
+        <ImageView
+            android:id="@+id/userprofile_profile_pic7"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/selected7"
+            android:layout_toStartOf="@id/userprofile_profile_pic2"
+            android:background="@drawable/icon6" />
+
+        <ImageView
+            android:id="@+id/selected8"
+            android:visibility="invisible"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/userprofile_profile_pic5"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/change_picture_select_arrow" />
+
+
+        <ImageView
+            android:id="@+id/userprofile_profile_pic8"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/selected8"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/icon7" />
+
+        <ImageView
+            android:id="@+id/selected9"
+            android:visibility="invisible"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/userprofile_profile_pic6"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="40dp"
+            android:layout_toEndOf="@id/selected8"
+            android:background="@drawable/change_picture_select_arrow" />
+
+        <ImageView
+            android:id="@+id/userprofile_profile_pic9"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/selected9"
+            android:layout_toEndOf="@id/userprofile_profile_pic8"
+            android:background="@drawable/icon8" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/change_picture_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="76dp"
+            android:backgroundTint="@color/gray_dark"
+            android:paddingVertical="20dp"
+            android:text="Choose selected image"
+            android:textColor="@color/Blue_0" />
+    </RelativeLayout>
+</LinearLayout>

@@ -2,16 +2,18 @@ package com.example.message.model;
 
 public class User {
 
-    private String id, name, imageURL;
+
+    private String id, name, email, imageID;
 
     public User(){
 
     }
 
-    public User(String id, String name, String imageURL) {
+    public User(String id, String name, String email, String imageID) {
         this.id = id;
         this.name = name;
-        this.imageURL = imageURL;
+        this.email = email;
+        this.imageID = imageID;
     }
 
 
@@ -32,11 +34,19 @@ public class User {
         this.name = name;
     }
 
-    public String getImageURL() {
-        return imageURL;
+    public String getEmail() {
+        return email;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setEmail(String email) {
+        this.email = email;
     }
+
+
+
+    public void setImageID(String imageID) {
+        this.imageID = imageID;
+    }
+
+    public String getImageID() {return imageID;}
 }

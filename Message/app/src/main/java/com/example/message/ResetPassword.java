@@ -41,12 +41,9 @@ public class ResetPassword extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String l_email = email.getText().toString();
-                if (TextUtils.isEmpty(l_email) | TextUtils.isEmpty(l_email))
-                {
+                if (TextUtils.isEmpty(l_email) | TextUtils.isEmpty(l_email)) {
                     Toast.makeText(ResetPassword.this, "Email entry required", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                } else {
                     Toast.makeText(ResetPassword.this, "Email sent", Toast.LENGTH_SHORT).show();
                     FirebaseAuth.getInstance().sendPasswordResetEmail(l_email);
                     Intent intent = new Intent(ResetPassword.this, Login.class);
@@ -56,5 +53,5 @@ public class ResetPassword extends AppCompatActivity {
             }
         });
     }
-
 }
+

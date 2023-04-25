@@ -5,9 +5,44 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ChatHomepage"
-    android:background="@drawable/gradient"
-    android:orientation="vertical">
+    android:background="@color/Blue_0"
+    android:orientation="vertical"
+    android:id="@+id/chat_homepage">
 
+    <RelativeLayout
+        android:id="@+id/chathome_navigation_layout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/Blue_2"
+        android:layout_alignParentTop="true"
+        android:paddingHorizontal="20dp"
+        >
+
+        <ImageButton
+            android:id="@+id/chathome_back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/chatroom_back_btn"
+            android:contentDescription="Go back"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chat Homepage"
+            android:textSize="25sp"
+            android:textColor="@color/Blue_0"
+            android:textStyle="bold"
+            android:layout_toEndOf="@id/chathome_back_btn"
+            android:layout_marginStart="20dp"
+            android:layout_centerVertical="true"
+            />
+
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,7 +55,7 @@
             android:id="@+id/chathome_profile_pic"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/push_in_boots"
+            android:background="@drawable/icondefault"
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
             />
@@ -38,17 +73,25 @@
             android:layout_centerVertical="true"
             />
 
+        <ImageButton
+            android:id="@+id/chathome_friend_request_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/friend_request_icon"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"/>
+
     </RelativeLayout>
     
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/chathome_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#435982"
-        app:tabSelectedTextColor="@color/white"
-        app:tabIndicatorColor="@color/white"
+        android:background="@color/Blue_2"
+        app:tabSelectedTextColor="@color/gray_light"
+        app:tabIndicatorColor="@color/gray_light"
         app:tabIndicatorHeight="4dp"
-        app:tabTextColor="@color/white"/>
+        app:tabTextColor="@color/gray_light"/>
     
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/chathome_view_pager"
@@ -62,10 +105,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="RANDOM CHAT"
-        android:textColor="#FFFFFFFF"
-        android:backgroundTint="#435982"
+        android:textColor="@color/gray_light"
+        android:backgroundTint="@color/gray_dark"
         android:textSize="20sp"
-        android:paddingVertical="20dp"
+        android:paddingVertical="30dp"
         />
 
 </LinearLayout>
