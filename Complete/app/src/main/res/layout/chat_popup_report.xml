@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80373737"
+    android:id="@+id/report_window_layout">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:layout_centerInParent="true"
+        android:background="@color/gray_light"
+        android:orientation="vertical"
+        android:layout_margin="20dp">
+
+        <TextView
+            android:id="@+id/chat_popup_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Explain why you are reporting this user:"
+            android:layout_marginVertical="20dp"/>
+
+        <EditText
+            android:id="@+id/report_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="30dp"
+            android:layout_centerInParent="true"
+            android:background="#ffff"
+            android:hint="Type it here..."
+            android:inputType="textMultiLine"
+            android:padding="20dp"
+            android:textColor="@color/gray_dark"
+            android:textColorHint="@color/gray_medium"
+            android:textSize="15sp"
+            android:textStyle="italic" />
+=
+        <Button
+            android:id="@+id/chat_popup_report_send_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/Blue_2"
+            android:paddingVertical="15dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Send Report"
+            android:textColor="@color/Blue_0" />
+
+        <Button
+            android:id="@+id/chat_popup_report_cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/gray_medium"
+            android:paddingVertical="15dp"
+            android:layout_gravity="center"
+            android:layout_marginVertical="10dp"
+            android:text="Cancel"
+            android:textColor="@color/Blue_0" />
+
+    </LinearLayout>
+</RelativeLayout>

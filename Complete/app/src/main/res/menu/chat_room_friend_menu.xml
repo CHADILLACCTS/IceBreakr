@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/chat_room_more"
+        android:icon="@drawable/chatroom_friend_btn"
+        android:title=""
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/chat_room_add_friend"
+                android:title="Add Friend"
+                android:icon="@drawable/chatroom_add_friend_icon"
+                app:showAsAction="ifRoom"/>
+
+            <item
+                android:id="@+id/chat_room_do_not_connect_again"
+                android:title="Do Not Connect Again"
+                android:icon="@drawable/chatroom_do_not_connect_again_icon"
+                app:showAsAction="ifRoom"/>
+
+            <item
+                android:id="@+id/chat_room_report_user"
+                android:title="Report User"
+                android:icon="@drawable/chatroom_report_icon"
+                app:showAsAction="ifRoom"/>
+        </menu>
+    </item>
+</menu>
